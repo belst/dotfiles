@@ -39,10 +39,10 @@ myWorkspaces :: [WorkspaceId]
 myWorkspaces = ["1", "2", "3", "4", "5", "6" ,"7", "8", "9", "0"]
 
 dzenCommand :: String
-dzenCommand = "dzen2 -ta l -e  'onstart=lower' -w 683"
+dzenCommand = "dzen2 -ta l -e  'onstart=lower' -w 583"
 
 dzen2Command :: String
-dzen2Command = "time2str | dzen2 -ta r -e 'onstart=lower' -w 683 -x 682"
+dzen2Command = "monky | dzen2 -ta r -e 'onstart=lower' -w 783 -x 582"
 
 scrot2Dropbox :: String
 scrot2Dropbox = "scrot screen_%Y-%m-%d-%H-%M-%S.png -e 'mv $f ~/Dropbox/Public && dropbox-cli puburl Dropbox/Public/$f | xsel -ib && xsel -ob | xsel -ip'"
@@ -80,6 +80,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
   --Launch launcher and tools
     ((modMask, xK_d), spawn "dmenu_run")
   , ((modMask, xK_Return), spawn "urxvtc")
+  --, ((modMask, xK_Return), spawn "xfce4-terminal")
 
   --Exit/Kill and Stuff
   , ((modMask .|. shiftMask, xK_e), io exitSuccess )
@@ -200,8 +201,8 @@ hideDzen = sendMessage ToggleStruts
   --spawn "pkill -USR1 dzen2"
 
 
-scratchpads =   [ NS "weechat" "urxvtc -title 'WeeChat 1.3' -e weechat" (title =? "WeeChat 1.3") (customFloating (W.RationalRect 0.1 0.1 0.8 0.8))
-    ]
+scratchpads =   [ NS "weechat" "urxvtc -title 'WeeChat 1.3' -e weechat" (title =? "WeeChat 1.3") (customFloating (W.RationalRect 0.1 0.1 0.8 0.8)) ]
+--scratchpads =   [ NS "weechat" "xfce4-terminal --title 'WeeChat 1.3' -e weechat" (title =? "WeeChat 1.3") (customFloating (W.RationalRect 0.1 0.1 0.8 0.8)) ]
 
 printWindows :: X ()
 printWindows = do

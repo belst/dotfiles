@@ -14,6 +14,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'evanmiller/nginx-vim-syntax'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'wting/rust.vim'
+Plugin 'racer-rust/vim-racer'
 
 " Track the engine.
 Plugin 'SirVer/ultisnips'
@@ -32,6 +33,7 @@ colorscheme solarized
 filetype plugin indent on
 syntax on
 set t_Co=256 ts=4 sw=4 sts=4 et nu ls=2
+
 
 autocmd FileType haskell setlocal ts=2 sw=2 sts=2
 

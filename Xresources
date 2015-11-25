@@ -20,7 +20,7 @@ URxvt.matcher.button: 1
 URxvt.matcher.rend.0: Uline Bold fg5
 
 URxvt.allow_bold: true
-URxvt*.font: xft:Sauce Code Powerline:size=8
+*.font: xft:Sauce Code Powerline:size=8 xft:Noto Color Emoji:style=Regular
 !URxvt*.font: xft:Source Code Pro for Powerline Medium:size=8
 !XTerm*.font: xft:Source Code Pro for Powerline Medium:size=8
 !XTerm*.fontFace: xft:Source Code Pro for Powerline Medium

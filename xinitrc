@@ -29,5 +29,6 @@ urxvtd -q -o -f
 dunst &
 dropbox &
 xsetroot -cursor_name left_ptr
+nm-applet &
 [ ! -s ~/.config/mpd/pid ] && mpd
 exec xmonad
