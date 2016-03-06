@@ -33,6 +33,7 @@ import XMonad.Util.WindowProperties
 import XMonad.Util.WorkspaceCompare
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
+import XMonad.Hooks.SetWMName (setWMName)
 
 
 myWorkspaces :: [WorkspaceId]
@@ -42,7 +43,7 @@ dzenCommand :: String
 dzenCommand = "dzen2 -ta l -e  'onstart=lower' -w 583"
 
 dzen2Command :: String
-dzen2Command = "monky | dzen2 -ta r -e 'onstart=lower' -w 783 -x 582"
+dzen2Command = "monky | dzen2 -ta r -e 'onstart=lower' -w 784 -x 582"
 
 scrot2Dropbox :: String
 scrot2Dropbox = "scrot screen_%Y-%m-%d-%H-%M-%S.png -e 'mv $f ~/Dropbox/Public && dropbox-cli puburl Dropbox/Public/$f | xsel -ib && xsel -ob | xsel -ip'"
@@ -67,6 +68,7 @@ main = do
   , handleEventHook = fullscreenEventHook
   , logHook = myLogHook d
     --myLogHook2 e
+  , startupHook = setWMName "LG3D"
   }
 
 myLayoutHook = fullscreenFull $avoidStruts  $ noBorders . mkToggle (NOBORDERS ?? FULL ?? EOT)  $ mkToggle (single MIRROR) $ tall |||  twopane
@@ -78,7 +80,7 @@ myLayoutHook = fullscreenFull $avoidStruts  $ noBorders . mkToggle (NOBORDERS ??
 myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
   --Launch launcher and tools
-    ((modMask, xK_d), spawn "dmenu_run")
+    ((modMask, xK_d), spawn "dmenu_run-dark")
   , ((modMask, xK_Return), spawn "urxvtc")
   --, ((modMask, xK_Return), spawn "xfce4-terminal")
 
@@ -130,7 +132,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
   , ((0, xF86XK_AudioMute), spawn "notify-send `amixer sset Master toggle | grep \"Mono:\" | cut -d ' ' -f 8`")
   , ((0, xF86XK_AudioRaiseVolume), spawn "notify-send `amixer sset Master 5%+ | grep \"Mono:\" | cut -d ' ' -f 6`")
   , ((0, xF86XK_AudioLowerVolume), spawn "notify-send `amixer sset Master 5%- | grep \"Mono:\" | cut -d ' ' -f 6`")
+  , ((0, xF86XK_AudioPrev), spawn "mpc prev")
   , ((0, xF86XK_AudioPlay), spawn "mpc toggle")
+  , ((0, xF86XK_AudioNext), spawn "mpc next")
   , ((0, xF86XK_MonBrightnessUp), spawn "xbacklight -inc 10")
   , ((0, xF86XK_MonBrightnessDown), spawn "xbacklight -dec 10")
   , ((0, 0x1008ffa9), spawn "synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')")
@@ -201,8 +205,8 @@ hideDzen = sendMessage ToggleStruts
   --spawn "pkill -USR1 dzen2"
 
 
-scratchpads =   [ NS "weechat" "urxvtc -title 'WeeChat 1.3' -e weechat" (title =? "WeeChat 1.3") (customFloating (W.RationalRect 0.1 0.1 0.8 0.8)) ]
---scratchpads =   [ NS "weechat" "xfce4-terminal --title 'WeeChat 1.3' -e weechat" (title =? "WeeChat 1.3") (customFloating (W.RationalRect 0.1 0.1 0.8 0.8)) ]
+scratchpads =   [ NS "weechat" "urxvtc -title 'WeeChat 1.4' -e weechat" (title =? "WeeChat 1.4") (customFloating (W.RationalRect 0.1 0.1 0.8 0.8)) ]
+--scratchpads =   [ NS "weechat" "xfce4-terminal --title 'WeeChat 1.4' -e weechat" (title =? "WeeChat 1.4") (customFloating (W.RationalRect 0.1 0.1 0.8 0.8)) ]
 
 printWindows :: X ()
 printWindows = do

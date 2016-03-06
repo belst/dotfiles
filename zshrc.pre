@@ -24,3 +24,11 @@ alias pls='_ $(fc -ln -1) '
 alias wget='curl -O '
 alias wpa='_ wpa_supplicant -Dwext, -iwlo1 -c /etc/wpa_supplicant/wpa_supplicant.conf -B'
 alias dhcp='_ dhcpcd'
+
+pb () {
+    curl -F "c=@${1:--}" https://ptpb.pw/
+}
+
+pbx () {
+  curl -sF "c=@${1:--}" -w "%{redirect_url}" 'https://ptpb.pw/?r=1' -o /dev/stderr | xsel -l /dev/null -b
+}
