@@ -14,7 +14,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'evanmiller/nginx-vim-syntax'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'wting/rust.vim'
-Plugin 'racer-rust/vim-racer'
+"Plugin 'racer-rust/vim-racer'
 
 " Track the engine.
 Plugin 'SirVer/ultisnips'

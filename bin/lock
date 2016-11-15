@@ -1,5 +1,6 @@
 #!/bin/bash
 scrot /tmp/screen.png
-convert /tmp/screen.png -scale 10% -scale 1000% /tmp/screen.png
+#convert /tmp/screen.png -scale 10% -scale 1000% /tmp/screen.png
+ffmpeg -loglevel quiet -y -i /tmp/screen.png -vf "scale=iw/10:-1,scale=1366:768:flags=neighbor" /tmp/screen.png
 [[ -f $HOME/Pictures/Icons/lock.png ]] && convert /tmp/screen.png $HOME/Pictures/Icons/lock.png -gravity center -composite -matte /tmp/screen.png
 i3lock -u -i /tmp/screen.png

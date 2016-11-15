@@ -2,11 +2,14 @@
 
 source /usr/share/doc/pkgfile/command-not-found.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/.cargo/env
+export CARGO_HOME=$HOME/.cargo
 
 export XDG_CONFIG_HOME=$HOME/.config
 export PATH=$HOME/bin:$HOME/.gem/ruby/2.2.0/bin:$PATH
 export PATH=$HOME/.cabal/bin:$PATH
-export BATTERY=1
+#export BATTERY=1
+export GRML_DISPLAY_BATTERY=1
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
 
@@ -32,3 +35,8 @@ pb () {
 pbx () {
   curl -sF "c=@${1:--}" -w "%{redirect_url}" 'https://ptpb.pw/?r=1' -o /dev/stderr | xsel -l /dev/null -b
 }
+
+if [ $COLORTERM="yes" ]
+then
+    export TERM=xterm-256color
+fi

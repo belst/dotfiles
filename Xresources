@@ -4,13 +4,13 @@ URxvt.secondaryScreen: 1
 Urxvt.secondaryScroll: 0
 
 
-URxvt.perl-ext: default,url-select,font-size,clipboard,background,matcher
-URxvt.perl-ext-common: keyboard-select
-URxvt.keysym.M-u: perl:url-select:select_next
-URxvt.keysym.M-c: perl:clipboard:copy
-URxvt.keysym.M-v: perl:clipboard:paste
-URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
-URxvt.keysym.M-Escape: perl:keyboard-select:active
+!URxvt.perl-ext: default,url-select,font-size,clipboard,background,matcher
+!URxvt.perl-ext-common: keyboard-select
+!URxvt.keysym.M-u: perl:url-select:select_next
+!URxvt.keysym.M-c: perl:clipboard:copy
+!URxvt.keysym.M-v: perl:clipboard:paste
+!URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+!URxvt.keysym.M-Escape: perl:keyboard-select:active
 
 URxvt.url-select.launcher: /usr/bin/google-chrome-stable
 URxvt.url-select.underline: true
@@ -20,7 +20,7 @@ URxvt.matcher.button: 1
 URxvt.matcher.rend.0: Uline Bold fg5
 
 URxvt.allow_bold: true
-*.font: xft:Sauce Code Powerline:size=8 xft:Noto Color Emoji:style=Regular
+!*.font: xft:Sauce Code Powerline:size=8 xft:Noto Color Emoji:style=Regular
 !URxvt*.font: xft:Source Code Pro for Powerline Medium:size=8
 !XTerm*.font: xft:Source Code Pro for Powerline Medium:size=8
 !XTerm*.fontFace: xft:Source Code Pro for Powerline Medium

@@ -37,7 +37,10 @@ import XMonad.Hooks.SetWMName (setWMName)
 
 
 myWorkspaces :: [WorkspaceId]
-myWorkspaces = ["1", "2", "3", "4", "5", "6" ,"7", "8", "9", "0"]
+myWorkspaces = clickable . map dzenEscape $ ["1", "2", "3", "4", "5", "6" ,"7", "8", "9", "0"]
+  where clickable l = [ "^ca(1,xdotool key super+" ++ show (i `mod` 10) ++ ")" ++ ws ++ "^ca()"
+                      | (i, ws) <- zip [1..] l ]
+
 
 dzenCommand :: String
 dzenCommand = "dzen2 -ta l -e  'onstart=lower' -w 583"
@@ -46,13 +49,18 @@ dzen2Command :: String
 dzen2Command = "monky | dzen2 -ta r -e 'onstart=lower' -w 784 -x 582"
 
 scrot2Dropbox :: String
-scrot2Dropbox = "scrot screen_%Y-%m-%d-%H-%M-%S.png -e 'mv $f ~/Dropbox/Public && dropbox-cli puburl Dropbox/Public/$f | xsel -ib && xsel -ob | xsel -ip'"
+scrot2Dropbox = "main screen_$(date +%Y-%m-%d-%H-%M-%S).png -e 'pbx $f'"
+-- scrot2Dropbox = "maim screen_$(date +%Y-%m-%d-%H-%M-%S).png -e 'mv $f ~/Dropbox/Public && dropbox-cli puburl Dropbox/Public/$f | xsel -ib && xsel -ob | xsel -ip'"
+-- scrot2Dropbox = "maim screen_%Y-%m-%d-%H-%M-%S.png -e 'mv $f ~/Dropbox/Public && dropbox-cli puburl Dropbox/Public/$f | xsel -ib && xsel -ob | xsel -ip'"
 
 scrot2DropboxW :: String
-scrot2DropboxW = "scrot window_%Y-%m-%d-%H-%M-%S.png -u -e 'mv $f ~/Dropbox/Public && dropbox-cli puburl Dropbox/Public/$f | xsel -ib && xsel -ob | xsel -ip'"
+scrot2DropboxW = "scrot window_$(date +%Y-%m-%d-%H-%M-%S).png -u -e 'mv $f ~/Dropbox/Public && dropbox-cli puburl Dropbox/Public/$f | xsel -ib && xsel -ob | xsel -ip'"
+-- scrot2DropboxW = "scrot window_%Y-%m-%d-%H-%M-%S.png -u -e 'mv $f ~/Dropbox/Public && dropbox-cli puburl Dropbox/Public/$f | xsel -ib && xsel -ob | xsel -ip'"
 
 scrot2DropboxS :: String
-scrot2DropboxS = "sleep 0.2; scrot selection_%Y-%m-%d-%H-%M-%S.png -s -e 'mv $f ~/Dropbox/Public && dropbox-cli puburl Dropbox/Public/$f | xsel -ib && xsel -ob | xsel -ip'"
+scrot2DropboxS = "sleep 0.2; main selection_$(date +%Y-%m-%d-%H-%M-%S).png -s -e 'pbx $f'"
+-- scrot2DropboxS = "sleep 0.2; maim selection_$(date +%Y-%m-%d-%H-%M-%S).png -s -e 'mv $f ~/Dropbox/Public && dropbox-cli puburl Dropbox/Public/$f | xsel -ib && xsel -ob | xsel -ip'"
+-- scrot2DropboxS = "sleep 0.2; maim selection_%Y-%m-%d-%H-%M-%S.png -s -e 'mv $f ~/Dropbox/Public && dropbox-cli puburl Dropbox/Public/$f | xsel -ib && xsel -ob | xsel -ip'"
 
 main = do
   d <- spawnPipe dzenCommand
@@ -81,8 +89,8 @@ myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
   --Launch launcher and tools
     ((modMask, xK_d), spawn "dmenu_run-dark")
-  , ((modMask, xK_Return), spawn "urxvtc")
-  --, ((modMask, xK_Return), spawn "xfce4-terminal")
+  --, ((modMask, xK_Return), spawn "urxvtc")
+  , ((modMask, xK_Return), spawn "xfce4-terminal")
 
   --Exit/Kill and Stuff
   , ((modMask .|. shiftMask, xK_e), io exitSuccess )
@@ -122,11 +130,12 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
   , ((modMask, xK_c), namedScratchpadAction scratchpads "weechat")
   , ((modMask, xK_x), spawn "lock")
   , ((modMask, xK_v), pasteSelection)
+  , ((noModMask, xK_F12), spawn "xfce4-terminal --drop-down")
 
   --Screenshot
   , ((modMask, xK_s), spawn scrot2Dropbox)
-  , ((modMask .|. shiftMask, xK_s), spawn scrot2DropboxW)
-  , ((modMask .|. controlMask, xK_s), spawn scrot2DropboxS)
+  -- , ((modMask .|. shiftMask, xK_s), spawn scrot2DropboxW)
+  , ((modMask .|. shiftMask, xK_s), spawn scrot2DropboxS)
 
   --Special keys
   , ((0, xF86XK_AudioMute), spawn "notify-send `amixer sset Master toggle | grep \"Mono:\" | cut -d ' ' -f 8`")
@@ -205,8 +214,8 @@ hideDzen = sendMessage ToggleStruts
   --spawn "pkill -USR1 dzen2"
 
 
-scratchpads =   [ NS "weechat" "urxvtc -title 'WeeChat 1.4' -e weechat" (title =? "WeeChat 1.4") (customFloating (W.RationalRect 0.1 0.1 0.8 0.8)) ]
---scratchpads =   [ NS "weechat" "xfce4-terminal --title 'WeeChat 1.4' -e weechat" (title =? "WeeChat 1.4") (customFloating (W.RationalRect 0.1 0.1 0.8 0.8)) ]
+--scratchpads =   [ NS "weechat" "urxvtc -title 'WeeChat 1.4' -e weechat" (title =? "WeeChat 1.4") (customFloating (W.RationalRect 0.1 0.1 0.8 0.8)) ]
+scratchpads =   [ NS "weechat" "xfce4-terminal --title='WeeChat 1.5' -e 'env TERM=xterm-256color weechat'" (title =? "WeeChat 1.5") (customFloating (W.RationalRect 0.1 0.1 0.8 0.8)) ]
 
 printWindows :: X ()
 printWindows = do

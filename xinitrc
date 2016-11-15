@@ -25,10 +25,10 @@ ibus-daemon -d --xim
 # redshift&
 setxkbmap -option caps:escape
 feh --bg-scale /home/belst/Pictures/Wandpapier/sgacitywp.jpg
-urxvtd -q -o -f
+# urxvtd -q -o -f
 dunst &
 dropbox &
 xsetroot -cursor_name left_ptr
 nm-applet &
-[ ! -s ~/.config/mpd/pid ] && mpd
+#[ ! -s ~/.config/mpd/pid ] && mpd
 exec xmonad
