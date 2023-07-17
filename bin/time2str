@@ -1,6 +1,0 @@
-#!/bin/bash
-LANG="de_DE.UTF-8";
-while true; do
-    echo $(date +"^fg(#007AC1)[^fg()%A^fg(#007AC1)] ^fg(#007AC1)[^fg(#CECECE)%d^fg(#007AC1).^fg()%m^fg(#007AC1).^fg(#4F5455)%Y^fg(#007AC1)] ^fg(#007AC1)[^fg(#CECECE)%H^fg(#007AC1):^fg()%M^fg(#007AC1):^fg(#4F5455)%S^fg(#007AC1)]");
-    sleep 1;
-done
